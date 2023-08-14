@@ -9,6 +9,12 @@ class AddUserToBoards():
     self.__collect_user_credentials()
     self.trello_client = TrelloClient(api_key=self.api_key, token=self.api_token)
     self.__check_trello_auth()
+    self.__workspace_selection()
+  
+  def __workspace_selection(self):
+    self.workspace = None
+    self.boards = None
+
     self.__choose_workspace()
     self.__load_boards()
 
@@ -85,5 +91,4 @@ Make sure you are logged in with the correct user when you create the API key. O
 
     resp = self.__prompt_y_n(f"Would you like to add the user \"{self.user.full_name}\" to all of these boards?")
     if not resp:
-      print("Exiting...")
-      exit(0)
+      return self.__workspace_selection()
