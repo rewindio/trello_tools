@@ -9,20 +9,30 @@ class AddUserToBoards():
     self.__collect_user_credentials()
     self.trello_client = TrelloClient(api_key=self.api_key, token=self.api_token)
     self.__check_trello_auth()
+    self.__choose_workspace()
+    self.__load_boards()
 
   def __press_enter_to_continue(self):
     input("\nPress Enter to continue...")
     print("\n")
 
   def __prompt_y_n(self, prompt):
-    resp = input(f"{prompt} (y/n): ").lower().strip()
+    resp = input(f"\n{prompt} (y/n): ").lower().strip()
     if resp == 'y':
       return True
     elif resp == 'n':
       return False
     else:
       print("Invalid input. Please try again.")
-      self.__prompt_y_n(prompt)
+      return self.__prompt_y_n(prompt)
+  
+  def __prompt_for_number(self, num_choices):
+    resp = input(f"\nEnter your choice: ")
+    num = int(resp.strip())
+    if num < 1 or num > num_choices:
+      print("Invalid input. Please try again.")
+      return self.__prompt_for_number(num_choices)
+    return num
   
   def __disclaimer(self):
     print("""
@@ -48,8 +58,32 @@ Make sure you are logged in with the correct user when you create the API key. O
       exit(1)
 
   def __check_trello_auth(self):
-    user = self.trello_client.get_member('me')
-    confirmation = self.__prompt_y_n(f"The user for this token is for \"{user.full_name} <{user.username}>\". Is this the correct user that you want added to the boards?")
+    self.user = self.trello_client.get_member('me')
+    confirmation = self.__prompt_y_n(f"The user for this token is for \"{self.user.full_name} <{self.user.username}>\". Is this the correct user that you want added to the boards?")
     if not confirmation:
       print("Please create a new API key and token for the correct user. Exiting...")
       exit(1)
+
+  def __choose_workspace(self):
+    print("\nChoose a workspace to add the user to:")
+    workspaces = self.trello_client.list_organizations()
+    for idx, workspace in enumerate(workspaces):
+      print(f"{idx+1}. {workspace.name}")
+    print(f"{len(workspaces)+1}. Exit")
+    choice = self.__prompt_for_number(len(workspaces)+1)
+    if choice == len(workspaces)+1:
+      exit(0)
+
+    self.workspace = workspaces[choice-1]
+    print(f"\nWorkspace \"{self.workspace.name}\" selected.\n")
+
+  def __load_boards(self):
+    self.boards = self.workspace.all_boards()
+    print(f"Found {len(self.boards)} boards in \"{self.workspace.name}\":")
+    for idx, board in enumerate(self.boards):
+      print(f"{idx+1}. {board.name}")
+
+    resp = self.__prompt_y_n(f"Would you like to add the user \"{self.user.full_name}\" to all of these boards?")
+    if not resp:
+      print("Exiting...")
+      exit(0)
