@@ -1,4 +1,4 @@
-from trello import TrelloClient
+from trello import TrelloClient, ResourceUnavailable
 
 class AddUserToBoards():
   def __init__(self):
@@ -17,6 +17,7 @@ class AddUserToBoards():
 
     self.__choose_workspace()
     self.__load_boards()
+    self.__add_user_to_boards()
 
   def __press_enter_to_continue(self):
     input("\nPress Enter to continue...")
@@ -92,3 +93,29 @@ Make sure you are logged in with the correct user when you create the API key. O
     resp = self.__prompt_y_n(f"Would you like to add the user \"{self.user.full_name}\" to all of these boards?")
     if not resp:
       return self.__workspace_selection()
+
+  def __add_user_to_boards(self):
+    print("\nAdding user to boards...")
+    for board in self.boards:
+      self.__add_user_to_board(board)
+    print("\nUser added to all boards!")
+    resp = self.__prompt_y_n("Would you like to the user to another workspace?")
+    if resp:
+      return self.__choose_workspace()
+    else:
+      print("Exiting...")
+      exit(0)
+
+  def __add_user_to_board(self, board):
+    try:
+      print(f"Adding user to \"{board.name}\"...", end="")
+      board.add_member(self.user)
+      print("Done!")
+    except ResourceUnavailable as e:
+      print(f"Failed to add user to board \"{board.name}\". Reason: {e}")
+      if '429' in str(e):
+        print("Rate limit exceeded. Waiting 10 seconds and trying again...")
+        time.sleep(10)
+        return self.__add_user_to_board(board)
+      else:
+        exit(1)
