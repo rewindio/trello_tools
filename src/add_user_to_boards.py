@@ -22,7 +22,9 @@ class AddUserToBoards():
   def __collect_user_credentials(self):
     print("""First, you'll need a Trello API key. This can be created here: https://id.atlassian.com/manage-profile/security/api-tokens
 
-Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.""")
+Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.
+
+See the README for more details.""")
     press_enter_to_continue()
 
     self.api_key = input("Paste your API key here: ")
