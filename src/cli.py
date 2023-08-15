@@ -45,6 +45,3 @@ See the README for more details.""")
     exit(1)
 
   return [api_key, api_token]
-
-if __name__ == "__main__":
-  main()
