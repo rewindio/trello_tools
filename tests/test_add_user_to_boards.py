@@ -2,7 +2,7 @@ import unittest
 import io
 import sys
 
-from src.add_user_to_boards import AddUserToBoards
+from trello_tools.add_user_to_boards import AddUserToBoards
 from unittest.mock import MagicMock, patch, call
 from trello import ResourceUnavailable
 
@@ -17,14 +17,14 @@ class AddUserToBoardsTests(unittest.TestCase):
     [mocks[i].configure_mock(name=names[i]) for i in range(len(names))]
     return mocks
 
-  @patch('src.helpers.get_input', return_value='y')
+  @patch('trello_tools.helpers.get_input', return_value='y')
   def test__check_trello_auth__y(self, get_input_mock):
     self.mock_trello_client.get_member.return_value = MagicMock(full_name='Test Name', username='test_name')
     self.test_class._check_trello_auth()
     self.mock_trello_client.get_member.assert_called_with('me')
     get_input_mock.assert_called_with('\nThe user for this token is for "Test Name <test_name>". Is this the correct user that you want added to the boards? (y/n): ')
 
-  @patch('src.helpers.get_input', return_value='n')
+  @patch('trello_tools.helpers.get_input', return_value='n')
   @patch('builtins.print')
   def test__check_trello_auth__n(self, print_mock, get_input_mock):
     self.mock_trello_client.get_member.return_value = MagicMock(full_name='Test Name', username='test_name')
@@ -32,7 +32,7 @@ class AddUserToBoardsTests(unittest.TestCase):
       self.test_class._check_trello_auth()
       print_mock.assert_called_with('Please create a new API key and token for the correct user. Exiting...')
 
-  @patch('src.helpers.get_input', return_value='1')
+  @patch('trello_tools.helpers.get_input', return_value='1')
   @patch('builtins.print')
   def test__choose_workspace__lists_workspaces(self, print_mock, get_input_mock):
     mocks = self.build_mocks_with_names(['Workspace 1', 'Workspace 2', 'Workspace 3'])
@@ -43,7 +43,7 @@ class AddUserToBoardsTests(unittest.TestCase):
       call('\nWorkspace "Workspace 1" selected.\n')
     ])
 
-  @patch('src.helpers.get_input', return_value='4')
+  @patch('trello_tools.helpers.get_input', return_value='4')
   def test__choose_workspace__lists_workspaces__exits(self, get_input_mock):
     mocks = self.build_mocks_with_names(['Workspace 1', 'Workspace 2', 'Workspace 3'])
     self.mock_trello_client.list_organizations.return_value = mocks
@@ -51,7 +51,7 @@ class AddUserToBoardsTests(unittest.TestCase):
       self.test_class._choose_workspace()
       self.mock_trello_client.list_organizations.assert_called_with()
 
-  @patch('src.helpers.get_input', return_value='y')
+  @patch('trello_tools.helpers.get_input', return_value='y')
   @patch('builtins.print')
   def test__load_boards__y(self, print_mock, get_input_mock):
     mocks = self.build_mocks_with_names(['Board 1', 'Board 2', 'Board 3'])
@@ -67,7 +67,7 @@ class AddUserToBoardsTests(unittest.TestCase):
     ])
     get_input_mock.assert_called_with('\nWould you like to add the user "Test Name" to all of these boards? (y/n): ')
 
-  @patch('src.helpers.get_input', return_value='n')
+  @patch('trello_tools.helpers.get_input', return_value='n')
   def test__load_boards__n(self, get_input_mock):
     mocks = self.build_mocks_with_names(['Board 1', 'Board 2', 'Board 3'])
     self.test_class.user = MagicMock(full_name='Test Name', username='test_name')
@@ -78,7 +78,7 @@ class AddUserToBoardsTests(unittest.TestCase):
     self.test_class.workspace.all_boards.assert_called_with()
     self.test_class._workspace_selection.assert_called_with()
 
-  @patch('src.helpers.get_input', return_value='n')
+  @patch('trello_tools.helpers.get_input', return_value='n')
   def test__add_user_to_boards__calls_add_user_to_board_for_each(self, get_input_mock):
     mocks = self.build_mocks_with_names(['Board 1', 'Board 2', 'Board 3'])
     self.test_class.boards = mocks

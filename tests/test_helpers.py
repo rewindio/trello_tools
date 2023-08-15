@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from src import helpers
+from trello_tools import helpers
 
 class HelpersTests(unittest.TestCase):
 

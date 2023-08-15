@@ -34,7 +34,7 @@ python3 -m pip install --user pipenv
 Running the CLI:
 
 ```commandline
-python3 -m pipenv run python -m src.cli add-user-to-boards
+python3 -m pipenv run python -m trello_tools add-user-to-boards
 ```
 
 Running the tests:
