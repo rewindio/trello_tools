@@ -25,3 +25,6 @@ jobs:
     - name: Test with unittest
       run: |
         pipenv run test
+    - name: Lint with ruff
+      run: |
+        pipenv run lint
