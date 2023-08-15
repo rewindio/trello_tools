@@ -1,5 +1,5 @@
-from add_user_to_boards import AddUserToBoards
-from helpers import *
+from .add_user_to_boards import AddUserToBoards
+from .helpers import *
 from trello import TrelloClient
 import argparse
 

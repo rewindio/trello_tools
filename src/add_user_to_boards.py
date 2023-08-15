@@ -1,30 +1,31 @@
+import time
 from trello import TrelloClient, ResourceUnavailable
-from helpers import *
+from .helpers import *
 
 class AddUserToBoards():
   def __init__(self, trello_client):
     self.trello_client = trello_client
 
   def run(self):
-    self.__check_trello_auth()
-    self.__workspace_selection()
+    self._check_trello_auth()
+    self._workspace_selection()
   
-  def __workspace_selection(self):
+  def _workspace_selection(self):
     self.workspace = None
     self.boards = None
 
-    self.__choose_workspace()
-    self.__load_boards()
-    self.__add_user_to_boards()
+    self._choose_workspace()
+    self._load_boards()
+    self._add_user_to_boards()
   
-  def __check_trello_auth(self):
+  def _check_trello_auth(self):
     self.user = self.trello_client.get_member('me')
     confirmation = prompt_y_n(f"The user for this token is for \"{self.user.full_name} <{self.user.username}>\". Is this the correct user that you want added to the boards?")
     if not confirmation:
       print("Please create a new API key and token for the correct user. Exiting...")
       exit(1)
 
-  def __choose_workspace(self):
+  def _choose_workspace(self):
     print("\nChoose a workspace to add the user to:")
     workspaces = self.trello_client.list_organizations()
     for idx, workspace in enumerate(workspaces):
@@ -37,7 +38,7 @@ class AddUserToBoards():
     self.workspace = workspaces[choice-1]
     print(f"\nWorkspace \"{self.workspace.name}\" selected.\n")
 
-  def __load_boards(self):
+  def _load_boards(self):
     self.boards = self.workspace.all_boards()
     print(f"Found {len(self.boards)} boards in \"{self.workspace.name}\":")
     for idx, board in enumerate(self.boards):
@@ -45,21 +46,21 @@ class AddUserToBoards():
 
     resp = prompt_y_n(f"Would you like to add the user \"{self.user.full_name}\" to all of these boards?")
     if not resp:
-      return self.__workspace_selection()
+      return self._workspace_selection()
 
-  def __add_user_to_boards(self):
+  def _add_user_to_boards(self):
     print("\nAdding user to boards...")
     for board in self.boards:
-      self.__add_user_to_board(board)
+      self._add_user_to_board(board)
     print("\nUser added to all boards!")
-    resp = prompt_y_n("Would you like to the user to another workspace?")
+    resp = prompt_y_n("Would you like to add the user to boards in another workspace?")
     if resp:
-      return self.__choose_workspace()
+      return self._workspace_selection()
     else:
       print("Exiting...")
       exit(0)
 
-  def __add_user_to_board(self, board):
+  def _add_user_to_board(self, board):
     try:
       print(f"Adding user to \"{board.name}\"...", end="")
       board.add_member(self.user)
@@ -69,6 +70,6 @@ class AddUserToBoards():
       if '429' in str(e):
         print("Rate limit exceeded. Waiting 10 seconds and trying again...")
         time.sleep(10)
-        return self.__add_user_to_board(board)
+        return self._add_user_to_board(board)
       else:
         exit(1)

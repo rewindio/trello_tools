@@ -34,5 +34,11 @@ python3 -m pip install --user pipenv
 Running the CLI:
 
 ```commandline
-python3 -m pipenv run python src/cli.py
+python3 -m pipenv run python -m src.cli add-user-to-boards
+```
+
+Running the tests:
+
+```commandline
+python3 -m pipenv run python -m unittest
 ```
