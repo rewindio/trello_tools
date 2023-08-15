@@ -2,12 +2,10 @@ from trello import TrelloClient, ResourceUnavailable
 from helpers import *
 
 class AddUserToBoards():
-  def __init__(self):
-    pass
+  def __init__(self, trello_client):
+    self.trello_client = trello_client
 
   def run(self):
-    self.__collect_user_credentials()
-    self.trello_client = TrelloClient(api_key=self.api_key, token=self.api_token)
     self.__check_trello_auth()
     self.__workspace_selection()
   
@@ -19,21 +17,6 @@ class AddUserToBoards():
     self.__load_boards()
     self.__add_user_to_boards()
   
-  def __collect_user_credentials(self):
-    print("""First, you'll need a Trello API key. This can be created here: https://id.atlassian.com/manage-profile/security/api-tokens
-
-Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.
-
-See the README for more details.""")
-    press_enter_to_continue()
-
-    self.api_key = input("Paste your API key here: ")
-    self.api_token = input("Paste your API token here: ")
-
-    if not self.api_key or not self.api_token:
-      print("You must provide both an API key and token. Exiting...")
-      exit(1)
-
   def __check_trello_auth(self):
     self.user = self.trello_client.get_member('me')
     confirmation = prompt_y_n(f"The user for this token is for \"{self.user.full_name} <{self.user.username}>\". Is this the correct user that you want added to the boards?")
