@@ -11,3 +11,7 @@ argparse = "*"
 
 [requires]
 python_version = "3"
+
+[scripts]
+trello_tools = "python -m trello_tools"
+test = "python -m unittest"

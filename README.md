@@ -34,11 +34,11 @@ pip install --user pipenv
 Running the CLI:
 
 ```commandline
-pipenv run python -m trello_tools add-user-to-boards
+pipenv run trello_tools add-user-to-boards
 ```
 
 Running the tests:
 
 ```commandline
-pipenv run python -m unittest
+pipenv run test
 ```
