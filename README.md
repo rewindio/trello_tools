@@ -1,6 +1,6 @@
 # Usage
 
-## Prerequisite
+## Prerequisites
 
 ### Trello Auth Token
 
@@ -28,17 +28,17 @@ See https://packaging.python.org/en/latest/tutorials/managing-dependencies/
 Install `pipenv`:
 
 ```commandline
-python3 -m pip install --user pipenv
+pip install --user pipenv
 ```
 
 Running the CLI:
 
 ```commandline
-python3 -m pipenv run python -m trello_tools add-user-to-boards
+pipenv run python -m trello_tools add-user-to-boards
 ```
 
 Running the tests:
 
 ```commandline
-python3 -m pipenv run python -m unittest
+pipenv run python -m unittest
 ```

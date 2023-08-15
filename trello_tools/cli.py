@@ -11,15 +11,15 @@ def main():
 
   args = parser.parse_args()
 
-  __disclaimer()
-  api_key, api_token = __collect_user_credentials()
+  _disclaimer()
+  api_key, api_token = _collect_user_credentials()
   trello_client = TrelloClient(api_key=api_key, token=api_token)
 
   if args.tool_name == 'add-user-to-boards':
     AddUserToBoards(trello_client).run()
 
 
-def __disclaimer():
+def _disclaimer():
   print("""
 This software is provided by Rewind to help you manage your Trello account. It is not officially supported by Trello and Rewind is not responsible for any damage caused by the use of this software.
 
@@ -29,7 +29,7 @@ COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQ
 
   press_enter_to_continue()
 
-def __collect_user_credentials():
+def _collect_user_credentials():
   print("""First, you'll need a Trello API key. This can be created here: https://id.atlassian.com/manage-profile/security/api-tokens
 
 Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.
