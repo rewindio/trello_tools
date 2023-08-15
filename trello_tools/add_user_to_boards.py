@@ -1,6 +1,6 @@
 import time
-from trello import TrelloClient, ResourceUnavailable
-from .helpers import *
+from trello import ResourceUnavailable
+from .helpers import prompt_y_n, prompt_for_number
 
 class AddUserToBoards():
   def __init__(self, trello_client):
@@ -20,7 +20,11 @@ class AddUserToBoards():
   
   def _check_trello_auth(self):
     self.user = self.trello_client.get_member('me')
-    confirmation = prompt_y_n(f"The user for this token is for \"{self.user.full_name} <{self.user.username}>\". Is this the correct user that you want added to the boards?")
+    confirmation = prompt_y_n(
+      f"The user associated with this token is \"{self.user.full_name} " + 
+      f"<{self.user.username}>\". Is this the correct user that you want " +
+      "added to the boards?"
+    )
     if not confirmation:
       print("Please create a new API key and token for the correct user. Exiting...")
       exit(1)
@@ -44,7 +48,10 @@ class AddUserToBoards():
     for idx, board in enumerate(self.boards):
       print(f"{idx+1}. {board.name}")
 
-    resp = prompt_y_n(f"Would you like to add the user \"{self.user.full_name}\" to all of these boards?")
+    resp = prompt_y_n(
+      f"Would you like to add the user \"{self.user.full_name}\" " +
+      "to all of these boards?"
+    )
     if not resp:
       return self._workspace_selection()
 

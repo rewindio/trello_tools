@@ -40,6 +40,6 @@ class HelpersTests(unittest.TestCase):
     self.assertEqual(mock_input.call_count, 3)
 
   @patch('builtins.input', side_effect=['5', '2'])
-  def test__prompt_for_number__prompts_again_if_greater_than_num_choices(self, mock_input):
+  def test__prompt_for_number__prompts_again_if_greater_than_max(self, mock_input):
     self.assertEqual(helpers.prompt_for_number(4), 2)
     self.assertEqual(mock_input.call_count, 2)

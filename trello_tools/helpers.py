@@ -13,7 +13,7 @@ def prompt_y_n(prompt):
     return prompt_y_n(prompt)
 
 def prompt_for_number(num_choices):
-  resp = get_input(f"\nEnter your choice: ")
+  resp = get_input("\nEnter your choice: ")
   num = int(resp.strip())
   if num < 1 or num > num_choices:
     print("Invalid input. Please try again.")

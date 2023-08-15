@@ -1,5 +1,5 @@
 from .add_user_to_boards import AddUserToBoards
-from .helpers import *
+from .helpers import press_enter_to_continue
 from trello import TrelloClient
 import argparse
 
@@ -20,6 +20,7 @@ def main():
 
 
 def _disclaimer():
+  # ruff: noqa: E501
   print("""
 This software is provided by Rewind to help you manage your Trello account. It is not officially supported by Trello and Rewind is not responsible for any damage caused by the use of this software.
 
