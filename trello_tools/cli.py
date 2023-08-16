@@ -2,6 +2,7 @@ from .add_user_to_boards import AddUserToBoards
 from .helpers import press_enter_to_continue
 from trello import TrelloClient
 import argparse
+import os
 
 def main():
   parser = argparse.ArgumentParser(description='Blah blah')
@@ -31,6 +32,11 @@ COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQ
   press_enter_to_continue()
 
 def _collect_user_credentials():
+  api_key_env = os.environ.get('TRELLO_API_KEY')
+  api_token_env = os.environ.get('TRELLO_API_TOKEN')
+  if api_key_env and api_token_env:
+    return [api_key_env, api_token_env]
+
   print("""First, you'll need a Trello API key. This can be created here: https://id.atlassian.com/manage-profile/security/api-tokens
 
 Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.
