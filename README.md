@@ -38,10 +38,10 @@ Before you can run this, you need to have Python installed on your computer. Ple
 Once Python has been installed, you will need to install `pipenv` to use this script. To do so, open your terminal (PowerShell if you're on Windows), and run this command:
 
 ```commandline
-pip install pipenv
+pip3 install pipenv
 ```
 
-After the installation is complete, run `pipenv --version` to confirm it is working.
+After the installation is complete, run `python3 -m pipenv --version` to confirm it is working.
 
 ### 3. Download and run the script
 
@@ -65,11 +65,17 @@ pip install --user pipenv
 Running the CLI:
 
 ```commandline
-pipenv run trello_tools add-user-to-boards
+python3 -m pipenv run trello_tools add-user-to-boards
 ```
 
 Running the tests:
 
 ```commandline
-pipenv run test
+python3 -m pipenv run test
+```
+
+Linting the code:
+
+```commandline
+python3 -m pipenv run lint
 ```
