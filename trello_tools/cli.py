@@ -37,7 +37,7 @@ def _collect_user_credentials():
   if api_key_env and api_token_env:
     return [api_key_env, api_token_env]
 
-  print("""First, you'll need a Trello API key. This can be created here: https://id.atlassian.com/manage-profile/security/api-tokens
+  print("""First, you'll need a Trello API key. This can be created here: https://trello.com/power-ups/admin 
 
 Make sure you are logged in with the correct user when you create the API key. Once created, copy the key to your clipboard. You'll need it in the next step.
 
