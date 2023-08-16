@@ -1,5 +1,5 @@
 import time
-from trello import ResourceUnavailable
+from trello import ResourceUnavailable, Board as TrelloBoard
 from .helpers import prompt_y_n, prompt_for_number
 
 class AddUserToBoards():
@@ -43,8 +43,18 @@ class AddUserToBoards():
     print(f"\nWorkspace \"{self.workspace.name}\" selected.\n")
 
   def _load_boards(self):
-    self.boards = self.workspace.all_boards()
-    print(f"Found {len(self.boards)} boards in \"{self.workspace.name}\":")
+    all_boards = self._fetch_boards_for_workspace_with_memberships()
+    self.boards = [board for board in all_boards if not board.user_is_member(self.user)]
+    num_total_boards = len(all_boards)
+    num_boards_to_add = len(self.boards)
+    num_boards_joined = num_total_boards - num_boards_to_add
+
+    print(f"Found {len(all_boards)} boards in \"{self.workspace.name}\".")
+    print(f"{self.user.full_name} is already a member of {num_boards_joined} of these.")
+    if len(self.boards) == 0:
+      print("There are no boards to add the user to. Returning to workspace selection")
+      return self._workspace_selection()
+    print(f"Joining {len(self.boards)} boards:")
     for idx, board in enumerate(self.boards):
       print(f"{idx+1}. {board.name}")
 
@@ -80,3 +90,24 @@ class AddUserToBoards():
         return self._add_user_to_board(board)
       else:
         exit(1)
+
+  def _fetch_boards_for_workspace_with_memberships(self):
+    url = f"/organizations/{self.workspace.id}/boards"
+    json_obj = self.trello_client.fetch_json(url)
+    return [
+      Board.from_json(organization=self.workspace, json_obj=obj) for obj in json_obj
+    ]
+
+
+class Board(TrelloBoard):
+  @classmethod
+  def from_json(cls, trello_client=None, organization=None, json_obj=None):
+    board = super(Board, cls).from_json(
+      trello_client=trello_client, organization=organization, json_obj=json_obj
+    )
+    board = Board(client=board.client, board_id=board.id, organization=board.organization, name=board.name)
+    board.memberships = json_obj['memberships']
+    return board
+  
+  def user_is_member(self, user):
+    return any([membership['idMember'] == user.id for membership in self.memberships])
