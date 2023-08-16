@@ -79,7 +79,6 @@ class AddUserToBoardsTests(unittest.TestCase):
 
   @patch('trello_tools.helpers.get_input', return_value='n')
   def test__load_boards__n(self, get_input_mock):
-    mocks = self.build_mocks_with_names(['Board 1', 'Board 2', 'Board 3'])
     self.test_class.user = MagicMock(full_name='Test Name', username='test_name')
     self.test_class.workspace = MagicMock()
     self.test_class._workspace_selection = MagicMock()
@@ -120,7 +119,7 @@ class AddUserToBoardsTests(unittest.TestCase):
     self.test_class.workspace = MagicMock()
     self.test_class.workspace.configure_mock(name="Workspace 1")
     self.test_class._fetch_boards_for_workspace_with_memberships = MagicMock(return_value=mocks)
-    self.test_class._workspace_selection = MagicMock();
+    self.test_class._workspace_selection = MagicMock()
     self.test_class._load_boards()
     print_mock.assert_has_calls([
       call('There are no boards to add the user to. Returning to workspace selection')
