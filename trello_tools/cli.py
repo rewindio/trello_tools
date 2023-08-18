@@ -23,11 +23,10 @@ def main():
 def _disclaimer():
   # ruff: noqa: E501
   print("""
-This software is provided by Rewind to help you manage your Trello account. It is not officially supported by Trello and Rewind is not responsible for any damage caused by the use of this software.
+NOT TECHNICAL ADVICE: Content made available on this page is intended solely for informational purposes only. It is not, and should not be taken, as professional technical advice by any user, who accepts full responsibility for its use. The content made available on this page is general in nature and without knowledge or reference to any users’ technical systems. No user should rely on, take or fail to take any action based on this content and, in all cases, should consult with their own technical advisors familiar with their technical systems before implementing any of the content made available here.
 
-THIS WORK IS PROVIDED "AS IS," AND COPYRIGHT HOLDERS MAKE NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO, WARRANTIES OF MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF THE SOFTWARE OR DOCUMENT WILL NOT INFRINGE ANY THIRD PARTY PATENTS, COPYRIGHTS, TRADEMARKS OR OTHER RIGHTS.
-
-COPYRIGHT HOLDERS WILL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, SPECIAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF ANY USE OF THE SOFTWARE OR DOCUMENT.""")
+THE CONTENT ON THIS PAGE IS PROVIDED ON AN AS-IS BASIS WITH NO REPRESENTATIONS OF COMPLETENESS, ACCURACY, USEFULNESS OR TIMELINESS, AND WITHOUT WARRANTIES OF ANY KIND WHATSOEVER, EXPRESS OR IMPLIED.
+""")
 
   press_enter_to_continue()
 
