@@ -1,5 +1,9 @@
 # Trello Tools
 
+> NOT TECHNICAL ADVICE: Content made available on this page is intended solely for informational purposes only. It is not, and should not be taken, as professional technical advice by any user, who accepts full responsibility for its use. The content made available on this page is general in nature and without knowledge or reference to any users’ technical systems. No user should rely on, take or fail to take any action based on this content and, in all cases, should consult with their own technical advisors familiar with their technical systems before implementing any of the content made available here.
+>
+> THE CONTENT ON THIS PAGE IS PROVIDED ON AN AS-IS BASIS WITH NO REPRESENTATIONS OF COMPLETENESS, ACCURACY, USEFULNESS OR TIMELINESS, AND WITHOUT WARRANTIES OF ANY KIND WHATSOEVER, EXPRESS OR IMPLIED.
+
 This is a collection of scripts for interacting with your Trello account. Here are the available scripts:
 
 - `add-user-to-boards` - Adds the authenticated user to all of the boards in the selected Trello workspace/organization. The user must already have access to the organization
