@@ -5,7 +5,7 @@ import argparse
 import os
 
 def main():
-  parser = argparse.ArgumentParser(description='Blah blah')
+  parser = argparse.ArgumentParser(prog='trello_tools', description='A set of tools to help manage your Trello account')
   parser.add_argument('tool_name',
                       help='the name of the tool you want to run',
                       choices=['add-user-to-boards'])
