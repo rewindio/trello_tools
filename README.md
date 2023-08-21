@@ -19,11 +19,11 @@ Before running this program, you will need to create a set of Trello credentials
 1. Go to Power-up Admin page: https://trello.com/power-ups/admin
 1. Create a New Power-Up by clicking the "New" button in the top right of the Power-Up admin portal.
 1. Fill out the following fields and click "Create":
-  - Name (the first field) - this can be anything (i.e. "Rewind Trello Script")
-  - Workspace - choose your personal workspace
-  - Email - your email address
-  - Support contact - your email address
-  - Author - your name
+    - Name (the first field) - this can be anything (i.e. "Rewind Trello Script")
+    - Workspace - choose your personal workspace
+    - Email - your email address
+    - Support contact - your email address
+    - Author - your name
 1. On the next page, click "Generate a new API key"
 1. Click "Generate API key" to confirm
 1. Copy down the "API key" field - you'll need this later
