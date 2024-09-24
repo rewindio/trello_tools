@@ -95,8 +95,6 @@ python3 -m pipenv run lint
 
 # Security Updates
 
-Replace `package-name` with the name of the package
-
 ```commandline
-pipenv update package-name
+pipenv install
 ```
