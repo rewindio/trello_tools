@@ -79,6 +79,8 @@ Running the CLI:
 python3 -m pipenv run trello_tools add-user-to-boards
 ```
 
+Obtain the API KEY & token from https://docs.adaptavist.com/w4j/latest/quick-configuration-guide/add-sources/how-to-generate-trello-api-key-token
+
 Running the tests:
 
 ```commandline
@@ -89,4 +91,12 @@ Linting the code:
 
 ```commandline
 python3 -m pipenv run lint
+```
+
+# Security Updates
+
+Replace `package-name` with the name of the package
+
+```commandline
+pipenv update package-name
 ```

@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 py-trello-api = ">=0.20.0, <1.0.0"
 argparse = ">=1.4.0, <2.0.0"
+certifi = "*"
+urllib3 = "*"
 
 [dev-packages]
 ruff = "*"
